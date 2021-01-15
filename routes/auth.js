@@ -16,12 +16,13 @@ const User=mongoose.model("Users");
 
 router.post('/signup',(req,res)=>{
 
-    const{emp_id,name,org_name,mobile,email,password}=req.body;
+    const{emp_id,name,org_name,mobile,email,password,id_pic}=req.body;
 
     if(!email||!password||!name||!emp_id||!org_name||!mobile)
     {
        return res.status(422).json({
-            error:"Please fill al the fields"
+           status:0,
+            message:"Please fill al the fields"
         })
     }
 
@@ -29,7 +30,7 @@ router.post('/signup',(req,res)=>{
     .then(savedUser=>{
         
         if(savedUser){
-            return res.json({message:"Already Exist"});
+            return res.json({status:0,message:"Already Exist"});
         }
         bcrypt.hash(password,12)
         .then(hashedpassword=>{
@@ -40,11 +41,12 @@ router.post('/signup',(req,res)=>{
                 name,
                 org_name,
                 emp_id,
-                mobile
+                mobile,
+                id_pic
             })
             user.save()
             .then(user=>{
-                res.json({message:"Successfully saved",data:user})
+                res.json({status:1,message:"Successfully saved",data:user})
             })
             .catch(err=>{
                 console.log(err)
@@ -62,13 +64,13 @@ router.post("/signin",(req,res)=>{
     const{email,password}=req.body;
 
     if(!email||!password){
-        return res.status(422).json({error:"Please fill all the  fields are required"})
+        return res.status(422).json({status:0,message:"Please fill all the  fields are required"})
     }
     User.findOne({email:email})
     .then(savedUser=>{
         if(!savedUser)
         {
-            return res.status(422).json({error:"Invalid email or password"})
+            return res.status(422).json({status:0,message:"Invalid email or password"})
         }
         bcrypt.compare(password,savedUser.password)
         .then(doMatch=>{
@@ -76,12 +78,12 @@ router.post("/signin",(req,res)=>{
 
                 // res.json({message:"Successfull Logged In !!!!!!!"});
                 const token =jwt.sign({_id:savedUser._id},JWT_SECRET)
-                const {_id,emp_id,name,org_name,mobile,email}=savedUser
-                res.json({token,user:{_id,emp_id,name,org_name,mobile,email}})
+                const {_id,emp_id,name,org_name,mobile,email,id_pic}=savedUser
+                res.json({status:1,token,user:{_id,emp_id,name,org_name,mobile,email,id_pic}})
 
             }
             else{
-                return res.status(422).json({error:"Invalid password"})
+                return res.status(422).json({status:0,message:"Invalid password"})
             }
         })
         .catch(err=>{

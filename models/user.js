@@ -25,10 +25,9 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true
     },
-    // id_pic:{
-    //     type:String,
-    //     default:"https://res.cloudinary.com/webarts/image/upload/v1598703774/default_jya5m4.jpg"
-    // },
+    id_pic:{
+        type:String,
+    },
    
 })
 
