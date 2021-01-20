@@ -3,8 +3,6 @@ const mongoose=require('mongoose');
 const cors=require('cors');
 const { MONGOURI } = require('./config/keys');
 const PORT=process.env.port||5000;
-
-
 //Database Connection
 mongoose.connect(MONGOURI,{ useNewUrlParser: true,useUnifiedTopology: true })
 
@@ -16,6 +14,7 @@ mongoose.connection.on('error',(err)=>{
     console.log('error connecting to mongo ???',err);
 })
 
+
 const app=express();
 
 app.use(cors())
@@ -25,7 +24,9 @@ require('./models/user')
 //Routes
 app.use(express.json())
 app.use(require('./routes/auth'));
+app.use(require('./routes/user'))
 app.get('/',(req,res)=>{
+    seed();
     res.send('Welcom to Hacker Cafe Api')
 })
 

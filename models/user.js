@@ -28,7 +28,32 @@ const userSchema=new mongoose.Schema({
     id_pic:{
         type:String,
     },
-   
+    orders:[
+        {
+            order:[
+                {
+                    title:{
+                        type:String
+                    },
+                    details:{
+                        type:String
+                    },
+                    type:{
+                        type:String
+                    },
+                    img:{
+                        type:String
+                    },
+                    price:{
+                        type:String
+                    },
+                    qty:{
+                        type:Number
+                    }
+                }
+            ]
+        }
+    ]
 })
 
 mongoose.model("Users",userSchema);
