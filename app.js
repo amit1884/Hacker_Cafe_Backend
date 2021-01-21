@@ -1,7 +1,8 @@
 const express =require('express');
 const mongoose=require('mongoose');
 const cors=require('cors');
-const { MONGOURI } = require('./config/keys');
+// const { MONGOURI } = require('./config/keys');
+const Menu=require('./models/menu')
 const PORT=process.env.port||5000;
 //Local Database Connection
 // mongoose.connect(MONGOURI,{ useNewUrlParser: true,useUnifiedTopology: true })
@@ -225,7 +226,7 @@ function seed()
     }
 }
 app.get('/',(req,res)=>{
-    seed()
+    // seed()
     res.send('Welcom to Hacker Cafe Api')
 })
 
