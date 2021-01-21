@@ -15,7 +15,7 @@ const PORT=process.env.port||5000;
 //     console.log('error connecting to mongo ???',err);
 // })
 // Remote db connection
-mongoose.connect(process.env.MONGOURI,{useNewUrlParser: true,useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://amit:raj@cluster0.hny5q.mongodb.net/hackercafe?retryWrites=true&w=majority",{useNewUrlParser: true,useUnifiedTopology: true })
 .then(()=>{
     console.log('databse connected')
 })
