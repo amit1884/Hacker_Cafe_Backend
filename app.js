@@ -3,17 +3,24 @@ const mongoose=require('mongoose');
 const cors=require('cors');
 const { MONGOURI } = require('./config/keys');
 const PORT=process.env.port||5000;
-//Database Connection
-mongoose.connect(MONGOURI,{ useNewUrlParser: true,useUnifiedTopology: true })
+//Local Database Connection
+// mongoose.connect(MONGOURI,{ useNewUrlParser: true,useUnifiedTopology: true })
 
-mongoose.connection.on('connected',()=>{
-    console.log('connected to mongo !!')
+// mongoose.connection.on('connected',()=>{
+//     console.log('connected to mongo !!')
+// })
+
+// mongoose.connection.on('error',(err)=>{
+//     console.log('error connecting to mongo ???',err);
+// })
+// Remote db connection
+mongoose.connect(process.env.MONGOURI,{useNewUrlParser: true,useUnifiedTopology: true })
+.then(()=>{
+    console.log('databse connected')
 })
-
-mongoose.connection.on('error',(err)=>{
-    console.log('error connecting to mongo ???',err);
-})
-
+.catch(()=>{
+    console.log(' database not connected')
+});
 
 const app=express();
 
