@@ -2,7 +2,7 @@ const express =require('express');
 const mongoose=require('mongoose');
 const cors=require('cors');
 require('dotenv').config()
-const PORT=process.env.port||5000;
+const PORT=process.env.PORT||5000;
 // Remote db connection
 mongoose.connect(process.env.MONGOURI,{useNewUrlParser: true,useUnifiedTopology: true })
 .then(()=>{
