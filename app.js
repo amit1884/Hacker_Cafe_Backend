@@ -1,7 +1,6 @@
 const express =require('express');
 const mongoose=require('mongoose');
 const cors=require('cors');
-const Menu=require('./models/menu')
 require('dotenv').config()
 const PORT=process.env.port||5000;
 // Remote db connection
